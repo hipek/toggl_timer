@@ -1,0 +1,2 @@
+class TogglTimer::Sync
+end
