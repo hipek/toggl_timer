@@ -1,8 +1,8 @@
-class TogglTimer::Sync < Struct.new(:user, :date)
+class TogglTimer::Sync < Struct.new(:user, :start_date, :end_date)
   class << self
     def sync_all
       User.find_each do |user|
-        new(user, Time.now).sync
+        new(user, Date.today, Date.today).sync
       end
     end
   end
@@ -25,7 +25,7 @@ class TogglTimer::Sync < Struct.new(:user, :date)
   end
 
   def toggl_times
-    time_entries.all_by_dates(date)
+    time_entries.all_by_dates(start_date, end_date)
   end
 
   def api_key
