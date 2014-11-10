@@ -1,6 +1,8 @@
 <h2>Toggl sync</h2>
 
-<%= form_tag toggl_path do %>
+<% if TogglTimer::Sync.new(User.current).api_key.present? %>
+
+<%= form_tag toggls_path do %>
   <% dates = (60.days.ago.to_date..Date.today).to_a.reverse %>
   Start date:
   <%= select_tag 'sync[start_date]', options_for_select(dates) %>
@@ -23,6 +25,7 @@
       <th>Description</th>
       <th>Duration (sec)</th>
       <th>Hours</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
 
@@ -30,12 +33,29 @@
     <% @logs.each do |log| %>
       <tr>
         <td><%= log.toggl_id %></td>
-        <td><%= log.description %></td>
+        <td>
+          <% if log.time_entry.present? %>
+          <%= link_to log.description, issue_time_entries_url(log.time_entry.issue_id) %>
+          <% else %>
+          <%= log.description %>
+          <% end %>
+        </td>
         <td><%= log.duration %></td>
         <td><%= log.hours %></td>
+        <td class="buttons">
+          <% if log.time_entry.blank? %>
+            <%= link_to 'delete', toggl_url(log), data: {method: :delete, confirm: 'Are you sure?'} %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <p class="pagination"><%= pagination_links_full @logs_pages %></p>
+
+<% else %>
+
+<p>Toggl API key is missing. Go to <%= link_to 'my account', my_account_url -%> page and setup the key.</p>
+
+<% end %>
