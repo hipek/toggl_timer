@@ -1,3 +1,22 @@
-= toggl_timer
+= TogglTimer - plugin for redmine
 
-Description goes here
+Copy times from toggl to redmine. Use #[number] in your toggl description.
+
+= Install plugin
+
+Clone repository to redmine plugin directory:
+
+  cd redmine/plugins
+  git clone https://github.com/hipek/toggl_timer.git
+
+Run migrations:
+
+  rake redmine:plugins:migrate NAME=toggl_timer
+
+= Uninstall plugin
+
+Revert migrations:
+
+  rake redmine:plugins:migrate NAME=toggl_timer VERSION=0
+
+Remove plugin from redmine/plugins dir

@@ -5,4 +5,5 @@ Redmine::Plugin.register :toggl_timer do
   version '0.0.1'
   url 'https://github.com/hipek/toggl_timer'
   author_url 'https://github.com/hipek'
+  menu :account_menu, :toggl, { :controller => 'toggl_timer', :action => 'index' }, :caption => 'Toggl'
 end
