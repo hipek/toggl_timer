@@ -12,3 +12,30 @@
   <%= submit_tag 'Sync' %>
 
 <% end %>
+
+<br />
+<br />
+
+<table class="list issues">
+  <thead>
+    <tr>
+      <th>Toggle ID</th>
+      <th>Description</th>
+      <th>Duration (sec)</th>
+      <th>Hours</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @logs.each do |log| %>
+      <tr>
+        <td><%= log.toggl_id %></td>
+        <td><%= log.description %></td>
+        <td><%= log.duration %></td>
+        <td><%= log.hours %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p class="pagination"><%= pagination_links_full @logs_pages %></p>

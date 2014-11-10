@@ -12,6 +12,10 @@ class TogglTimer::Log < ActiveRecord::Base
     end
   end
 
+  def hours
+    (duration / 3600.0).round(2)
+  end
+
   def update_entry(ttime, user)
     self.class.transaction do
       self.time_entry ||= ::TimeEntry.new

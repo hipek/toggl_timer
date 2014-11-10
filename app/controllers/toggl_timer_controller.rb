@@ -3,6 +3,7 @@ class TogglTimerController < AccountController
 
   def index
     require_login || return
+    @logs_pages, @logs = paginate TogglTimer::Log.order('created_at desc'), :per_page => 25
   end
 
   def create
