@@ -4,7 +4,8 @@ class TogglTimerController < AccountController
   def index
     @logs_pages, @logs = paginate(
       TogglTimer::Log.order('created_at desc')
-        .includes(:time_entry),
+        .includes(:time_entry)
+        .where('time_entries.user_id = ?', User.current.id),
       :per_page => 25
     )
   end
