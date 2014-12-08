@@ -34,7 +34,7 @@
       <tr>
         <td><%= log.toggl_id %></td>
         <td>
-          <% if log.time_entry.present? %>
+          <% if log.time_entry.present? && log.time_entry.issue_id.present? %>
           <%= link_to log.description, issue_time_entries_url(log.time_entry.issue_id) %>
           <% else %>
           <%= log.description %>
