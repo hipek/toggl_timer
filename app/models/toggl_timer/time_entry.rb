@@ -1,3 +1,5 @@
+require 'active_resource' unless defined? ActiveResource::Base
+
 class TogglTimer::TimeEntry < ActiveResource::Base
   self.site     = 'https://www.toggl.com/api/v8'
   self.password = 'api_token'
